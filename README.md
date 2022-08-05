@@ -1,3 +1,3 @@
-# Marubase Community
+# Marubase Platform
 
-Database research project.
+Application platform research project.
