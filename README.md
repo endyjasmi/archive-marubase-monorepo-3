@@ -1,3 +1,3 @@
-# Marubase Platform
+# 🗃️ Marubase Platform
 
-Application platform research project.
+> 🚧 This project is currently work in progress.
