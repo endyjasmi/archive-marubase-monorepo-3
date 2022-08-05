@@ -1,0 +1,8 @@
+{
+  "name": "@marubase/platform",
+  "private": true,
+  "type": "commonjs",
+  "workspaces": [
+    "./packages/*"
+  ]
+}
