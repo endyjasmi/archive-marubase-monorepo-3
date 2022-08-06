@@ -5,6 +5,7 @@
     "experimentalDecorators": true,
     "module": "ESNext",
     "moduleResolution": "NodeNext",
-    "noEmit": true
+    "noEmit": true,
+    "sourceMap": true
   }
 }
