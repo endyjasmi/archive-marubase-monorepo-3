@@ -19,6 +19,9 @@ module.exports = {
       Buffer: ["buffer", "Buffer"],
       process: "process/browser",
     }),
+    new webpack.NormalModuleReplacementPlugin(/^node:/, (resource) => {
+      resource.request = resource.request.substring(5);
+    }),
   ],
   resolve: {
     fallback: {
