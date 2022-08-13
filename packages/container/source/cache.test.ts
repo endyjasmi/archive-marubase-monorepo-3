@@ -8,7 +8,7 @@ describe("Cache", function () {
     cache = new Cache();
   });
 
-  describe("get storeMap()", function () {
+  describe("get storeMap", function () {
     it("should return store map", function () {
       const returnStoreMap = cache.storeMap;
       expect(returnStoreMap).to.be.an.instanceOf(ImmutableMap);
