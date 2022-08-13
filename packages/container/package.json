@@ -44,8 +44,5 @@
     "test:firefox": "karma start --browsers=FirefoxHeadless \"../../karma.conf.js\"",
     "test:nodejs": "mocha \"./source/index.test.*\"",
     "test:webkit": "karma start --browsers=WebkitHeadless \"../../karma.conf.js\""
-  },
-  "dependencies": {
-    "immutable": "^4.1.0"
   }
 }
