@@ -16,7 +16,6 @@ module.exports = {
   plugins: ["tsdoc"],
   root: true,
   rules: {
-    "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
     "tsdoc/syntax": "error",
   },
