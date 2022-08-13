@@ -36,7 +36,7 @@ describe("Cache", function () {
   describe("#fork()", function () {
     it("should return fork", function () {
       const returnFork = cache.fork();
-      expect(returnFork).to.not.equal(cache);
+      expect(returnFork).to.be.an.instanceOf(Cache);
     });
   });
 
