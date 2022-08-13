@@ -39,10 +39,7 @@ module.exports = function (karmaConfig) {
     hostname: "127.0.0.1",
     listenAddress: "0.0.0.0",
     logLevel: karmaConfig.LOG_ERROR,
-    mochaReporter: {
-      output: "minimal",
-      showDiff: true,
-    },
+    mochaReporter: { output: "minimal" },
     plugins: [
       "karma-chrome-launcher",
       "karma-coverage",
