@@ -9,13 +9,17 @@ export class Cache implements CacheInterface {
     this._storeMap = storeMap ?? ImmutableMap();
   }
 
-  public get storeMap(): ImmutableMap<BindingKey, unknown> {
-    return this._storeMap;
+  public [Symbol.iterator](): IterableIterator<[BindingKey, unknown]> {
+    return this._storeMap[Symbol.iterator]();
   }
 
   public delete(bindingKey: BindingKey): this {
     this._storeMap = this._storeMap.delete(bindingKey);
     return this;
+  }
+
+  public entries(): IterableIterator<[BindingKey, unknown]> {
+    return this._storeMap.entries();
   }
 
   public fork(): this {
@@ -31,8 +35,16 @@ export class Cache implements CacheInterface {
     return this._storeMap.has(bindingKey);
   }
 
+  public keys(): IterableIterator<BindingKey> {
+    return this._storeMap.keys();
+  }
+
   public set(bindingKey: BindingKey, value: unknown): this {
     this._storeMap = this._storeMap.set(bindingKey, value);
     return this;
+  }
+
+  public values(): IterableIterator<unknown> {
+    return this._storeMap.values();
   }
 }
