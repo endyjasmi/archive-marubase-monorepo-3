@@ -62,8 +62,4 @@ export type ResolverFactory = {
   ): ResolverInterface<ResolveInstance>;
 };
 
-export type ResolverScope =
-  | "container"
-  | "resolver"
-  | "singleton"
-  | "transient";
+export type ResolverScope = "container" | "resolve" | "singleton" | "transient";
