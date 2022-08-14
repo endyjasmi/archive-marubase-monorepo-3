@@ -59,9 +59,7 @@ describe("Cache", function () {
         cache.set("key1", "value1");
       });
       it("should return iterator", function () {
-        const entries: [BindingKey, unknown][] = [];
-        for (const entry of cache.entries()) entries.push(entry);
-
+        const entries = cache.entries();
         expect(entries).to.deep.equal([
           ["key0", "value0"],
           ["key1", "value1"],
@@ -70,9 +68,7 @@ describe("Cache", function () {
     });
     context("when there is no values", function () {
       it("should return iterator", function () {
-        const entries: [BindingKey, unknown][] = [];
-        for (const entry of cache.entries()) entries.push(entry);
-
+        const entries = cache.entries();
         expect(entries).to.deep.equal([]);
       });
     });
@@ -129,17 +125,13 @@ describe("Cache", function () {
         cache.set("key1", "value1");
       });
       it("should return iterator", function () {
-        const keys: BindingKey[] = [];
-        for (const key of cache.keys()) keys.push(key);
-
+        const keys = cache.keys();
         expect(keys).to.deep.equal(["key0", "key1"]);
       });
     });
     context("when there is no values", function () {
       it("should return iterator", function () {
-        const keys: BindingKey[] = [];
-        for (const key of cache.keys()) keys.push(key);
-
+        const keys = cache.keys();
         expect(keys).to.deep.equal([]);
       });
     });
@@ -170,17 +162,13 @@ describe("Cache", function () {
         cache.set("key1", "value1");
       });
       it("should return iterator", function () {
-        const values: unknown[] = [];
-        for (const value of cache.values()) values.push(value);
-
+        const values = cache.values();
         expect(values).to.deep.equal(["value0", "value1"]);
       });
     });
     context("when there is no values", function () {
       it("should return iterator", function () {
-        const values: unknown[] = [];
-        for (const value of cache.values()) values.push(value);
-
+        const values = cache.values();
         expect(values).to.deep.equal([]);
       });
     });
