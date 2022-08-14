@@ -22,7 +22,7 @@ export interface ResolverInterface<ResolveInstance> {
 
   clearBindingTags(...bindingTags: BindingTag[]): this;
 
-  clearDependencies(...dependencies: BindingKey[]): this;
+  clearDependencies(): this;
 
   resolve(scope: ScopeInterface, ...args: unknown[]): ResolveInstance;
 
