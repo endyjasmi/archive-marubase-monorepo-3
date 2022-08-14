@@ -5,7 +5,7 @@ export interface CacheInterface {
 
   delete(key: BindingKey): this;
 
-  entries(): IterableIterator<[BindingKey, unknown]>;
+  entries(): [BindingKey, unknown][];
 
   fork(): this;
 
@@ -13,9 +13,9 @@ export interface CacheInterface {
 
   has(key: BindingKey): boolean;
 
-  keys(): IterableIterator<BindingKey>;
+  keys(): BindingKey[];
 
   set(key: BindingKey, value: unknown): this;
 
-  values(): IterableIterator<unknown>;
+  values(): unknown[];
 }
