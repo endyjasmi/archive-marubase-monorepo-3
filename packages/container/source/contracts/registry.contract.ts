@@ -10,16 +10,12 @@ import { ResolverFactory, ResolverInterface } from "./resolver.contract.js";
 export interface RegistryInterface {
   readonly bindingKeyMap: ImmutableMap<BindingKey, ResolverInterface<unknown>>;
 
-  readonly bindingKeys: BindingKey[];
-
   readonly bindingTagMap: ImmutableMap<
     BindingTag,
     ImmutableSet<ResolverInterface<unknown>>
   >;
 
-  readonly bindingTags: BindingTag[];
-
-  readonly factory: ResolverFactory;
+  readonly resolverFactory: ResolverFactory;
 
   createBindingKeyResolver<ResolveInstance>(
     bindingKey: BindingKey,
