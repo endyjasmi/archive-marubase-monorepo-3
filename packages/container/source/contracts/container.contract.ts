@@ -37,7 +37,7 @@ export interface ContainerInterface {
   resolveTag<ResolveInstance>(
     bindingTag: BindingTag,
     ...args: unknown[]
-  ): ResolveInstance[];
+  ): ResolveInstance;
 
   unbind(bindingKey: BindingKey): this;
 }
@@ -48,7 +48,7 @@ export type ContainerBinding = {
   ): ResolverInterface<ResolveInstance>;
 
   toAlias<ResolveInstance>(
-    bindingKey: BindingKey,
+    aliasKey: BindingKey,
   ): ResolverInterface<ResolveInstance>;
 
   toCallable<ResolveInstance>(
