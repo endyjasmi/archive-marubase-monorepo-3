@@ -18,8 +18,8 @@ export class Cache implements CacheInterface {
     return this;
   }
 
-  public entries(): IterableIterator<[BindingKey, unknown]> {
-    return this._storeMap.entries();
+  public entries(): [BindingKey, unknown][] {
+    return Array.from(this._storeMap.entries());
   }
 
   public fork(): this {
@@ -35,8 +35,8 @@ export class Cache implements CacheInterface {
     return this._storeMap.has(bindingKey);
   }
 
-  public keys(): IterableIterator<BindingKey> {
-    return this._storeMap.keys();
+  public keys(): BindingKey[] {
+    return Array.from(this._storeMap.keys());
   }
 
   public set(bindingKey: BindingKey, value: unknown): this {
@@ -44,7 +44,7 @@ export class Cache implements CacheInterface {
     return this;
   }
 
-  public values(): IterableIterator<unknown> {
-    return this._storeMap.values();
+  public values(): unknown[] {
+    return Array.from(this._storeMap.values());
   }
 }
