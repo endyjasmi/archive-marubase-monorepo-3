@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { Cache } from "./cache.js";
-import { BindingKey } from "./index.js";
+import { BindingKey } from "./contracts/common.contract.js";
 
 describe("Cache", function () {
   let cache: Cache;
