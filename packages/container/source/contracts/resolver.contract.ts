@@ -1,13 +1,8 @@
-import {
-  BindingKey,
-  BindingTag,
-  Callable,
-  Constructor,
-} from "./common.contract.js";
+import { BindingKey, BindingTag, Callable } from "./common.contract.js";
 import { RegistryInterface } from "./registry.contract.js";
 import { ScopeInterface } from "./scope.contract.js";
 
-export interface ResolverInterface<ResolveInstance> {
+export interface ResolverInterface {
   readonly bindingKey?: BindingKey;
 
   readonly bindingTags: BindingTag[];
@@ -24,7 +19,9 @@ export interface ResolverInterface<ResolveInstance> {
 
   clearDependencies(): this;
 
-  resolve(scope: ScopeInterface, ...args: unknown[]): ResolveInstance;
+  resolve<Instance>(scope: ScopeInterface, ...args: unknown[]): Instance;
+
+  resolveMany<Instance>(scope: ScopeInterface, ...args: unknown[]): Instance[];
 
   setBindingKey(bindingKey: BindingKey): this;
 
@@ -36,30 +33,30 @@ export interface ResolverInterface<ResolveInstance> {
 }
 
 export type ResolverFactory = {
-  createBindingKeyResolver<ResolveInstance>(
+  createBindingKeyResolver(
     registry: RegistryInterface,
     bindingKey: BindingKey,
-  ): ResolverInterface<ResolveInstance>;
+  ): ResolverInterface;
 
-  createBindingTagResolver<ResolveInstance>(
+  createBindingTagResolver(
     registry: RegistryInterface,
     bindingTag: BindingTag,
-  ): ResolverInterface<ResolveInstance>;
+  ): ResolverInterface;
 
-  createCallableResolver<ResolveInstance>(
+  createCallableResolver(
     registry: RegistryInterface,
-    callable: Callable<ResolveInstance>,
-  ): ResolverInterface<ResolveInstance>;
+    callable: Callable<unknown>,
+  ): ResolverInterface;
 
-  createClassResolver<ResolveInstance>(
+  createClassResolver(
     registry: RegistryInterface,
-    constructor: Constructor<ResolveInstance>,
-  ): ResolverInterface<ResolveInstance>;
+    constructor: Function,
+  ): ResolverInterface;
 
-  createConstantResolver<ResolveInstance>(
+  createConstantResolver(
     registry: RegistryInterface,
     constant: unknown,
-  ): ResolverInterface<ResolveInstance>;
+  ): ResolverInterface;
 };
 
 export type ResolverScope = "container" | "resolve" | "singleton" | "transient";
