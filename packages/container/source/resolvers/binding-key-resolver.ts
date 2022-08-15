@@ -12,19 +12,16 @@ export class BindingKeyResolver extends BaseResolver {
     this._resolveKey = bindingKey;
   }
 
-  public resolve<Instance>(
-    scope: ScopeInterface,
-    ...args: unknown[]
-  ): Instance {
+  public resolve<Result>(scope: ScopeInterface, ...args: unknown[]): Result {
     const resolveKey = this._resolveKey;
     const resolver = this._registry.getResolverByKey(resolveKey);
     if (typeof resolver === "undefined") {
       const resolveKeyName =
         typeof resolveKey !== "string"
-          ? typeof resolveKey !== "symbol"
-            ? `Class(${resolveKey.name})`
-            : `Symbol(${resolveKey.toString()})`
-          : `"${resolveKey}"`;
+          ? typeof resolveKey !== "function"
+            ? `Symbol(${resolveKey.toString()})`
+            : `Class(${resolveKey.name})`
+          : `'${resolveKey}'`;
 
       const context = `Resolving instance.`;
       const problem = `Binding not found at ${resolveKeyName}.`;
@@ -32,12 +29,12 @@ export class BindingKeyResolver extends BaseResolver {
       throw new ResolverError(`${context} ${problem} ${solution}`);
     }
 
-    const instance = resolver.resolve<Instance>(scope, ...args);
+    const instance = resolver.resolve<Result>(scope, ...args);
     if (resolver.scope === "transient") return instance;
 
     const cache = scope[resolver.scope];
     return !cache.has(resolveKey)
-      ? (cache.set(resolveKey, instance).get(resolveKey) as Instance)
-      : (cache.get(resolveKey) as Instance);
+      ? (cache.set(resolveKey, instance).get(resolveKey) as Result)
+      : (cache.get(resolveKey) as Result);
   }
 }
