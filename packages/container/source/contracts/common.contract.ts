@@ -5,7 +5,7 @@ export type BindingTag = string | symbol;
 export type Callable =
   | [BindingKey, string | symbol]
   | [Object, string | symbol]
-  | (<Result>(...args: unknown[]) => Result);
+  | ((...args: unknown[]) => unknown);
 
 export type Constructor<Instance> = {
   new (...args: unknown[]): Instance;
