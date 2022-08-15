@@ -12,7 +12,7 @@ export interface ContainerInterface {
 
   bound(bindingKey: BindingKey): boolean;
 
-  call<Instance>(callable: Callable<Instance>, ...args: unknown[]): Instance;
+  call<Result>(callable: Callable, ...args: unknown[]): Result;
 
   create<Instance>(constructor: Function, ...args: unknown[]): Instance;
 
@@ -20,13 +20,13 @@ export interface ContainerInterface {
 
   resolve<Instance>(bindingKey: BindingKey, ...args: unknown[]): Instance;
 
-  resolveTag<Instance>(bindingTag: BindingTag, ...args: unknown[]): Instance;
+  resolveTag<Instance>(bindingTag: BindingTag, ...args: unknown[]): Instance[];
 
   unbind(bindingKey: BindingKey): this;
 }
 
 export type ContainerBinding = {
-  toCallable(callable: Callable<unknown>): ResolverInterface;
+  toCallable(callable: Callable): ResolverInterface;
 
   toClass(constructor: Function): ResolverInterface;
 
