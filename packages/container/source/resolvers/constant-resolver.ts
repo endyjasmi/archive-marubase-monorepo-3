@@ -9,7 +9,7 @@ export class ConstantResolver extends BaseResolver {
     this._constant = constant;
   }
 
-  public resolve<Instance>(): Instance {
-    return this._constant as Instance;
+  public resolve<Result>(): Result {
+    return this._constant as Result;
   }
 }
