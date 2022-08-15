@@ -137,7 +137,7 @@ describe("Cache", function () {
     });
   });
 
-  describe("#set(bindingKey)", function () {
+  describe("#set(bindingKey, value)", function () {
     context("when there is value", function () {
       beforeEach(function () {
         cache.set("key", "value");
