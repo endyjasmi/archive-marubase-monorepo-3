@@ -1,11 +1,11 @@
-import { CacheInterface } from "./cache.contract.js";
+import { BindingKey } from "./common.contract.js";
 
 export interface ScopeInterface {
-  readonly container: CacheInterface;
+  readonly container: Map<BindingKey, unknown>;
 
-  readonly resolve: CacheInterface;
+  readonly resolve: Map<BindingKey, unknown>;
 
-  readonly singleton: CacheInterface;
+  readonly singleton: Map<BindingKey, unknown>;
 
   fork(type: ForkType): this;
 }
