@@ -6,6 +6,8 @@ export interface RegistryInterface {
 
   readonly bindingTagMap: Map<BindingTag, Set<ResolverInterface>>;
 
+  readonly parent?: RegistryInterface;
+
   readonly resolverFactory: ResolverFactory;
 
   createBindingKeyResolver(bindingKey: BindingKey): ResolverInterface;
