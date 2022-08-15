@@ -12,6 +12,10 @@ describe("ClassResolver", function () {
   });
 
   describe("#resolve(scope, ...args)", function () {
+    beforeEach(() => {
+      registry.createConstantResolver(Date.now()).setBindingKey("time");
+      resolver.setDependencies("time");
+    });
     it("should return instance", function () {
       const scope = new Scope();
       const instance = resolver.resolve(scope);
