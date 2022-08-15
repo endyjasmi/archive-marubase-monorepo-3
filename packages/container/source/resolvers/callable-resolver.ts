@@ -1,4 +1,8 @@
-import { BindingKey, Callable } from "../contracts/common.contract.js";
+import {
+  BindingKey,
+  Callable,
+  Instance,
+} from "../contracts/common.contract.js";
 import { RegistryInterface } from "../contracts/registry.contract.js";
 import { ResolverInterface } from "../contracts/resolver.contract.js";
 import { ScopeInterface } from "../contracts/scope.contract.js";
@@ -37,7 +41,3 @@ export class CallableResolver extends BaseResolver {
     }
   }
 }
-
-export type Instance<Result> = {
-  [methodName: string | symbol]: (...args: unknown[]) => Result;
-};
