@@ -1,42 +1,39 @@
-import { Cache } from "./cache.js";
-import { CacheInterface } from "./contracts/cache.contract.js";
-import { Constructor } from "./contracts/common.contract.js";
+import { BindingKey, Constructor } from "./contracts/common.contract.js";
 import { ForkType, ScopeInterface } from "./contracts/scope.contract.js";
 
 export class Scope implements ScopeInterface {
-  protected _container: CacheInterface;
+  protected _container: Map<BindingKey, unknown>;
 
-  protected _resolve: CacheInterface;
+  protected _resolve: Map<BindingKey, unknown>;
 
-  protected _singleton: CacheInterface;
+  protected _singleton: Map<BindingKey, unknown>;
 
   public constructor(
-    singleton?: CacheInterface,
-    container?: CacheInterface,
-    resolve?: CacheInterface,
+    singleton: Map<BindingKey, unknown> = new Map(),
+    container: Map<BindingKey, unknown> = new Map(),
+    resolve: Map<BindingKey, unknown> = new Map(),
   ) {
-    this._singleton = singleton ?? new Cache();
-    this._container = container ?? this._singleton;
-    this._resolve = resolve ?? this._container;
+    this._singleton = singleton;
+    this._container = container;
+    this._resolve = resolve;
   }
 
-  public get container(): CacheInterface {
+  public get container(): Map<BindingKey, unknown> {
     return this._container;
   }
 
-  public get resolve(): CacheInterface {
+  public get resolve(): Map<BindingKey, unknown> {
     return this._resolve;
   }
 
-  public get singleton(): CacheInterface {
+  public get singleton(): Map<BindingKey, unknown> {
     return this._singleton;
   }
 
   public fork(type: ForkType): this {
     const constructor = this.constructor as Constructor<this>;
-    const { container, resolve, singleton } = this;
     return type !== "container"
-      ? new constructor(singleton, container, resolve.fork())
-      : new constructor(singleton, container.fork());
+      ? new constructor(this._singleton, this._container)
+      : new constructor(this._singleton);
   }
 }
