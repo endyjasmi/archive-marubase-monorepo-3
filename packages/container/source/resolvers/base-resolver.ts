@@ -76,10 +76,8 @@ export class BaseResolver implements ResolverInterface {
     return this;
   }
 
-  public resolve<Instance>(
-    scope: ScopeInterface /* eslint-disable-line @typescript-eslint/no-unused-vars */,
-    ...args: unknown[] /* eslint-disable-line @typescript-eslint/no-unused-vars */
-  ): Instance {
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+  public resolve<Result>(scope: ScopeInterface, ...args: unknown[]): Result {
     const context = `Resolving instance.`;
     const problem = `Method not implemented.`;
     const solution = `Please extends BaseResolver and implement the resolve method.`;
