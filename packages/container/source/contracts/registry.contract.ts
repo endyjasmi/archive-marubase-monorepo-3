@@ -1,66 +1,35 @@
-import { Map as ImmutableMap, Set as ImmutableSet } from "immutable";
-import {
-  BindingKey,
-  BindingTag,
-  Callable,
-  Constructor,
-} from "./common.contract.js";
+import { Map as HAMTMap, Set as HAMTSet } from "immutable";
+import { BindingKey, BindingTag, Callable } from "./common.contract.js";
 import { ResolverFactory, ResolverInterface } from "./resolver.contract.js";
 
 export interface RegistryInterface {
-  readonly bindingKeyMap: ImmutableMap<BindingKey, ResolverInterface<unknown>>;
+  readonly bindingKeyMap: HAMTMap<BindingKey, ResolverInterface>;
 
-  readonly bindingTagMap: ImmutableMap<
-    BindingTag,
-    ImmutableSet<ResolverInterface<unknown>>
-  >;
+  readonly bindingTagMap: HAMTMap<BindingTag, HAMTSet<ResolverInterface>>;
 
   readonly resolverFactory: ResolverFactory;
 
-  createBindingKeyResolver<ResolveInstance>(
-    bindingKey: BindingKey,
-  ): ResolverInterface<ResolveInstance>;
+  createBindingKeyResolver(bindingKey: BindingKey): ResolverInterface;
 
-  createBindingTagResolver<ResolveInstance>(
-    bindingTag: BindingTag,
-  ): ResolverInterface<ResolveInstance>;
+  createBindingTagResolver(bindingTag: BindingTag): ResolverInterface;
 
-  createCallableResolver<ResolveInstance>(
-    callable: Callable<ResolveInstance>,
-  ): ResolverInterface<ResolveInstance>;
+  createCallableResolver(callable: Callable<unknown>): ResolverInterface;
 
-  createClassResolver<ResolveInstance>(
-    constructor: Constructor<ResolveInstance>,
-  ): ResolverInterface<ResolveInstance>;
+  createClassResolver(constructor: Function): ResolverInterface;
 
-  createConstantResolver<ResolveInstance>(
-    constant: ResolveInstance,
-  ): ResolverInterface<ResolveInstance>;
-
-  deleteResolverByKey(bindingKey: BindingKey): this;
-
-  deleteResolverByTag<ResolveInstance>(
-    bindingTag: BindingTag,
-    resolver: ResolverInterface<ResolveInstance>,
-  ): this;
+  createConstantResolver(constant: unknown): ResolverInterface;
 
   fork(): this;
 
-  getResolverByKey<ResolveInstance>(
-    bindingKey: BindingKey,
-  ): ResolverInterface<ResolveInstance> | undefined;
+  getResolverByKey(bindingKey: BindingKey): ResolverInterface | undefined;
 
-  getResolverByTag<ResolveInstance>(
-    bindingTag: BindingTag,
-  ): ResolverInterface<ResolveInstance>[];
+  getResolverByTag(bindingTag: BindingTag): ResolverInterface[];
 
-  setResolverByKey<ResolveInstance>(
-    bindingKey: BindingKey,
-    resolver: ResolverInterface<ResolveInstance>,
-  ): this;
+  setResolverByKey(bindingKey: BindingKey, resolver: ResolverInterface): this;
 
-  setResolverByTag<ResolveInstance>(
-    bindingTag: BindingTag,
-    resolver: ResolverInterface<ResolveInstance>,
-  ): this;
+  setResolverByTag(bindingTag: BindingTag, resolver: ResolverInterface): this;
+
+  unsetResolverByKey(bindingKey: BindingKey): this;
+
+  unsetResolverByTag(bindingTag: BindingTag, resolver: ResolverInterface): this;
 }
