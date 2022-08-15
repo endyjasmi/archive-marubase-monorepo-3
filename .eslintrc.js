@@ -20,7 +20,6 @@ module.exports = {
     "@typescript-eslint/consistent-indexed-object-style": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/prefer-function-type": "off",
-    "mocha/no-mocha-arrows": "off",
     "mocha/no-setup-in-describe": "off",
     "tsdoc/syntax": "error",
   },
