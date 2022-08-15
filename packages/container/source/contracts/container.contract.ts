@@ -14,13 +14,13 @@ export interface ContainerInterface {
 
   call<Result>(callable: Callable, ...args: unknown[]): Result;
 
-  create<Instance>(constructor: Function, ...args: unknown[]): Instance;
+  create<Result>(constructor: Function, ...args: unknown[]): Result;
 
   fork(): this;
 
-  resolve<Instance>(bindingKey: BindingKey, ...args: unknown[]): Instance;
+  resolve<Result>(bindingKey: BindingKey, ...args: unknown[]): Result;
 
-  resolveTag<Instance>(bindingTag: BindingTag, ...args: unknown[]): Instance[];
+  resolveTag<Result>(bindingTag: BindingTag, ...args: unknown[]): Result[];
 
   unbind(bindingKey: BindingKey): this;
 }
