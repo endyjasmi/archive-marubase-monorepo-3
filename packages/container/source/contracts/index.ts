@@ -1,4 +1,3 @@
-export * from "./cache.contract.js";
 export * from "./common.contract.js";
 export * from "./container.contract.js";
 export * from "./registry.contract.js";
