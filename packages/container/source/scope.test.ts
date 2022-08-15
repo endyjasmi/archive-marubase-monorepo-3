@@ -27,10 +27,11 @@ describe("Scope", function () {
     });
   });
 
-  ["container", "resolve"].forEach((forkType) => {
+  const forkTypes: ForkType[] = ["container", "resolve"];
+  forkTypes.forEach((forkType) => {
     describe(`#fork('${forkType}')`, function () {
       it("should return fork", function () {
-        const fork = scope.fork(forkType as ForkType);
+        const fork = scope.fork(forkType);
         expect(fork).to.be.an.instanceOf(Scope);
         expect(fork).to.not.equal(scope);
       });
