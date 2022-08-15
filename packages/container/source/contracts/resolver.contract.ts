@@ -19,7 +19,7 @@ export interface ResolverInterface {
 
   clearDependencies(): this;
 
-  resolve<Instance>(scope: ScopeInterface, ...args: unknown[]): Instance;
+  resolve<Result>(scope: ScopeInterface, ...args: unknown[]): Result;
 
   setBindingKey(bindingKey: BindingKey): this;
 
