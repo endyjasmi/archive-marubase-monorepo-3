@@ -1,10 +1,11 @@
+import { Map as HAMTMap, Set as HAMTSet } from "immutable";
 import { BindingKey, BindingTag, Callable } from "./common.contract.js";
 import { ResolverFactory, ResolverInterface } from "./resolver.contract.js";
 
 export interface RegistryInterface {
-  readonly bindingKeyMap: Map<BindingKey, ResolverInterface>;
+  readonly bindingKeyMap: HAMTMap<BindingKey, ResolverInterface>;
 
-  readonly bindingTagMap: Map<BindingTag, Set<ResolverInterface>>;
+  readonly bindingTagMap: HAMTMap<BindingTag, HAMTSet<ResolverInterface>>;
 
   readonly parent?: RegistryInterface;
 
