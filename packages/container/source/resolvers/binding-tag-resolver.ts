@@ -12,11 +12,11 @@ export class BindingTagResolver extends BaseResolver {
     this._resolveTag = bindingTag;
   }
 
-  public resolve<Instance>(scope: ScopeInterface): Instance {
+  public resolve<Result>(scope: ScopeInterface): Result {
     const toInstance = (resolver: ResolverInterface): unknown =>
       resolver.resolve(scope);
     return this._registry
       .getResolverByTag(this._resolveTag)
-      .map(toInstance) as unknown as Instance;
+      .map(toInstance) as unknown as Result;
   }
 }
