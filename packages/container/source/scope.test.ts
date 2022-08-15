@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { Cache } from "./cache.js";
+import { ForkType } from "./contracts/scope.contract.js";
 import { Scope } from "./scope.js";
 
 describe("Scope", function () {
@@ -8,39 +8,33 @@ describe("Scope", function () {
     scope = new Scope();
   });
 
-  describe("get container", function () {
+  describe("get container()", function () {
     it("should return cache", function () {
       const cache = scope.container;
-      expect(cache).to.be.an.instanceOf(Cache);
+      expect(cache).to.be.an.instanceOf(Map);
     });
   });
 
-  describe("get resolve", function () {
+  describe("get resolve()", function () {
     it("should return cache", function () {
-      const cache = scope.container;
-      expect(cache).to.be.an.instanceOf(Cache);
+      const cache = scope.resolve;
+      expect(cache).to.be.an.instanceOf(Map);
     });
   });
 
-  describe("get singleton", function () {
+  describe("get singleton()", function () {
     it("should return cache", function () {
-      const cache = scope.container;
-      expect(cache).to.be.an.instanceOf(Cache);
+      const cache = scope.singleton;
+      expect(cache).to.be.an.instanceOf(Map);
     });
   });
 
-  describe("#fork(type)", function () {
-    context("when type is 'container'", function () {
+  const forkTypes = ["container", "resolve"] as ForkType[];
+  forkTypes.forEach((forkType) => {
+    describe(`#fork('${forkType}')`, function () {
       it("should return fork", function () {
-        const fork = scope.fork("container");
-        expect(fork).be.an.instanceOf(Scope);
-        expect(fork).to.not.equal(scope);
-      });
-    });
-    context("when type is 'resolve'", function () {
-      it("should return fork", function () {
-        const fork = scope.fork("resolve");
-        expect(fork).be.an.instanceOf(Scope);
+        const fork = scope.fork(forkType);
+        expect(fork).to.be.an.instanceOf(Scope);
         expect(fork).to.not.equal(scope);
       });
     });
