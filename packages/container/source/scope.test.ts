@@ -33,7 +33,7 @@ describe("Scope", function () {
       it("should return fork", function () {
         const fork = scope.fork(forkType);
         expect(fork).to.be.an.instanceOf(Scope);
-        expect(fork).to.not.equal(scope);
+        expect(fork).to.not.equals(scope);
       });
     });
   });
