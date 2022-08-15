@@ -10,3 +10,7 @@ export type Callable =
 export type Constructor<Instance> = {
   new (...args: unknown[]): Instance;
 };
+
+export type Instance<Result> = {
+  [methodName: string | symbol]: (...args: unknown[]) => Result;
+};
