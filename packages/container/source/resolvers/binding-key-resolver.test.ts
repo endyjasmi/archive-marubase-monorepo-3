@@ -13,7 +13,7 @@ bindingKeys.forEach((bindingKey) => {
       ? typeof bindingKey !== "function"
         ? `Symbol(${bindingKey.toString()})`
         : `Class(${bindingKey.name})`
-      : `'${bindingKey}'`;
+      : bindingKey;
   describe(`BindingKeyResolver (${bindingKeyName})`, function () {
     let registry: Registry;
     let resolver: BindingKeyResolver;
