@@ -9,6 +9,7 @@ describe("ConstantResolver", function () {
     registry = new Registry();
     resolver = new ConstantResolver(registry, new Date());
   });
+
   describe("#resolve(scope)", function () {
     it("should return instance", function () {
       const instance = resolver.resolve();
