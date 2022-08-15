@@ -13,7 +13,7 @@ export interface RegistryInterface {
 
   createBindingTagResolver(bindingTag: BindingTag): ResolverInterface;
 
-  createCallableResolver(callable: Callable<unknown>): ResolverInterface;
+  createCallableResolver(callable: Callable): ResolverInterface;
 
   createClassResolver(constructor: Function): ResolverInterface;
 
