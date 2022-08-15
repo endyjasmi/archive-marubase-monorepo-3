@@ -32,7 +32,7 @@ export type ContainerBinding = {
 
   toConstant(constant: unknown): ResolverInterface;
 
-  toKey(bindingKey: BindingKey): ResolverInterface;
+  toKey(targetKey: BindingKey): ResolverInterface;
 
   toTag(bindingTag: BindingTag): ResolverInterface;
 };
