@@ -1,9 +1,4 @@
-import {
-  BindingKey,
-  BindingTag,
-  Callable,
-  Constructor,
-} from "./common.contract.js";
+import { BindingKey, BindingTag, Callable } from "./common.contract.js";
 import { RegistryInterface } from "./registry.contract.js";
 import { ResolverInterface } from "./resolver.contract.js";
 import { ScopeInterface } from "./scope.contract.js";
@@ -17,49 +12,27 @@ export interface ContainerInterface {
 
   bound(bindingKey: BindingKey): boolean;
 
-  call<ResolveInstance>(
-    callable: Callable<ResolveInstance>,
-    ...args: unknown[]
-  ): ResolveInstance;
+  call<Instance>(callable: Callable<Instance>, ...args: unknown[]): Instance;
 
-  create<ResolveInstance>(
-    constructor: Constructor<ResolveInstance>,
-    ...args: unknown[]
-  ): ResolveInstance;
+  create<Instance>(constructor: Function, ...args: unknown[]): Instance;
 
   fork(): this;
 
-  resolve<ResolveInstance>(
-    bindingKey: BindingKey,
-    ...args: unknown[]
-  ): ResolveInstance;
+  resolve<Instance>(bindingKey: BindingKey, ...args: unknown[]): Instance;
 
-  resolveTag<ResolveInstance>(
-    bindingTag: BindingTag,
-    ...args: unknown[]
-  ): ResolveInstance;
+  resolveTag<Instance>(bindingTag: BindingTag, ...args: unknown[]): Instance;
 
   unbind(bindingKey: BindingKey): this;
 }
 
 export type ContainerBinding = {
-  to<ResolveInstance>(
-    constructor: Constructor<ResolveInstance>,
-  ): ResolverInterface<ResolveInstance>;
+  toCallable(callable: Callable<unknown>): ResolverInterface;
 
-  toAlias<ResolveInstance>(
-    aliasKey: BindingKey,
-  ): ResolverInterface<ResolveInstance>;
+  toClass(constructor: Function): ResolverInterface;
 
-  toCallable<ResolveInstance>(
-    callable: Callable<ResolveInstance>,
-  ): ResolverInterface<ResolveInstance>;
+  toConstant(constant: unknown): ResolverInterface;
 
-  toConstant<ResolveInstance>(
-    constant: ResolveInstance,
-  ): ResolverInterface<ResolveInstance>;
+  toKey(bindingKey: BindingKey): ResolverInterface;
 
-  toTag<ResolveInstance>(
-    bindingTag: BindingTag,
-  ): ResolverInterface<ResolveInstance>;
+  toTag(bindingTag: BindingTag): ResolverInterface;
 };
