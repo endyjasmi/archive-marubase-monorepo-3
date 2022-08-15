@@ -11,7 +11,7 @@ export interface ResolverInterface {
 
   readonly registry: RegistryInterface;
 
-  readonly scope: ResolverScope;
+  readonly scope: ResolveScope;
 
   clearBindingKey(): this;
 
@@ -21,16 +21,16 @@ export interface ResolverInterface {
 
   resolve<Instance>(scope: ScopeInterface, ...args: unknown[]): Instance;
 
-  resolveMany<Instance>(scope: ScopeInterface, ...args: unknown[]): Instance[];
-
   setBindingKey(bindingKey: BindingKey): this;
 
   setBindingTags(...bindingTags: BindingTag[]): this;
 
   setDependencies(...dependencies: BindingKey[]): this;
 
-  setScope(scope: ResolverScope): this;
+  setScope(scope: ResolveScope): this;
 }
+
+export type ResolveScope = "container" | "resolve" | "singleton" | "transient";
 
 export type ResolverFactory = {
   createBindingKeyResolver(
@@ -45,7 +45,7 @@ export type ResolverFactory = {
 
   createCallableResolver(
     registry: RegistryInterface,
-    callable: Callable<unknown>,
+    callable: Callable,
   ): ResolverInterface;
 
   createClassResolver(
@@ -58,5 +58,3 @@ export type ResolverFactory = {
     constant: unknown,
   ): ResolverInterface;
 };
-
-export type ResolverScope = "container" | "resolve" | "singleton" | "transient";
