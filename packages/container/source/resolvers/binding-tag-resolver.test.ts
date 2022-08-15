@@ -21,5 +21,22 @@ describe("BindingTagResolver", function () {
         expect(instances).to.be.an("array");
       });
     });
+
+    context("when binding tag is symbol", function () {
+      let bindingTag: symbol;
+      let registry: Registry;
+      let resolver: BindingTagResolver;
+      beforeEach(function () {
+        bindingTag = Symbol("tag");
+        registry = new Registry();
+        resolver = new BindingTagResolver(registry, bindingTag);
+      });
+
+      it("should return instance array", function () {
+        const scope = new Scope();
+        const instances = resolver.resolve(scope);
+        expect(instances).to.be.an("array");
+      });
+    });
   });
 });
