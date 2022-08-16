@@ -10,7 +10,7 @@ Object.assign(process.env, {
 const webpack = require("webpack");
 const webpackConfig = require("./webpack.config.js");
 webpackConfig.mode = "none";
-webpackConfig.plugins.push(new webpack.EnvironmentPlugin("NODE_ENV"));
+webpackConfig.plugins.push(new webpack.EnvironmentPlugin({ NODE_ENV: "test" }));
 if (process.env.KARMA_COVERAGE) {
   webpackConfig.module.rules.push({
     enforce: "post",
