@@ -19,6 +19,7 @@ module.exports = {
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/consistent-indexed-object-style": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
+    "@typescript-eslint/no-floating-promises": "off",
     "@typescript-eslint/prefer-function-type": "off",
     "mocha/no-mocha-arrows": "off",
     "mocha/no-setup-in-describe": "off",
