@@ -7,10 +7,9 @@ export type Callable =
   | [Object, string | symbol]
   | ((...args: unknown[]) => unknown);
 
-export type Constructor<Instance> = {
-  new (...args: unknown[]): Instance;
-};
+export type Constructor<Instance> = new (...args: unknown[]) => Instance;
 
-export type Instance<Result> = {
-  [methodName: string | symbol]: (...args: unknown[]) => Result;
-};
+export type Instance<Result> = Record<
+  string | symbol,
+  (...args: unknown[]) => Result
+>;

@@ -142,7 +142,10 @@ describe("Container", function () {
         beforeEach(() => (provider = {}));
         beforeEach(() => container.install("test", provider));
         context("with boot method", function () {
-          beforeEach(() => (provider.boot = () => Promise.resolve()));
+          beforeEach(
+            () =>
+              (provider.boot = async (): Promise<void> => Promise.resolve()),
+          );
           it("should run boot", async function () {
             await container.boot();
           });
@@ -220,13 +223,16 @@ describe("Container", function () {
       context("and there is provider", function () {
         beforeEach(() => container.install("test", provider));
         it("should throw container error", function () {
-          const runFn = () => container.install("test", provider);
+          const runFn = (): unknown => container.install("test", provider);
           expect(runFn).to.throw(ContainerError);
         });
       });
       context("and there is no provider", function () {
         context("and supplied provider with boot method", function () {
-          beforeEach(() => (provider.boot = () => Promise.resolve()));
+          beforeEach(
+            () =>
+              (provider.boot = async (): Promise<void> => Promise.resolve()),
+          );
           it("should return self", function () {
             const self = container.install("test", provider);
             expect(self).to.equal(container);
@@ -244,13 +250,13 @@ describe("Container", function () {
       context("and there is provider", function () {
         beforeEach(() => container.install("test", provider));
         it("should throw container error", function () {
-          const runFn = () => container.install("test", provider);
+          const runFn = (): unknown => container.install("test", provider);
           expect(runFn).to.throw(ContainerError);
         });
       });
       context("and there is no provider", function () {
         context("and supplied provider with install method", function () {
-          beforeEach(() => (provider.install = () => undefined));
+          beforeEach(() => (provider.install = (): unknown => undefined));
           it("should return self", function () {
             const self = container.install("test", provider);
             expect(self).to.equal(container);
@@ -267,7 +273,7 @@ describe("Container", function () {
     context("when invoke from branch container", function () {
       it("should throw container error", function () {
         const branch = container.fork();
-        const runFn = () => branch.install("test", provider);
+        const runFn = (): unknown => branch.install("test", provider);
         expect(runFn).to.throw(ContainerError);
       });
     });
@@ -324,7 +330,7 @@ describe("Container", function () {
     });
     context("when there is no key binding", function () {
       it("should throw resolver error", function () {
-        const runFn = () => container.resolve(Date);
+        const runFn = (): unknown => container.resolve(Date);
         expect(runFn).to.throw(ResolverError);
       });
     });
@@ -358,7 +364,11 @@ describe("Container", function () {
         beforeEach(() => (provider = {}));
         beforeEach(() => container.install("test", provider));
         context("with shutdown method", function () {
-          beforeEach(() => (provider.shutdown = () => Promise.resolve()));
+          beforeEach(
+            () =>
+              (provider.shutdown = async (): Promise<void> =>
+                Promise.resolve()),
+          );
           it("should run shutdown", async function () {
             await container.shutdown();
           });
@@ -413,7 +423,11 @@ describe("Container", function () {
         beforeEach(() => (provider = {}));
         beforeEach(() => container.install("test", provider));
         context("with shutdown method", function () {
-          beforeEach(() => (provider.shutdown = () => Promise.resolve()));
+          beforeEach(
+            () =>
+              (provider.shutdown = async (): Promise<void> =>
+                Promise.resolve()),
+          );
           it("should return self", function () {
             const self = container.uninstall("test");
             expect(self).to.equal(container);
@@ -426,8 +440,12 @@ describe("Container", function () {
           });
         });
         context("with shutdown and uninstall method", function () {
-          beforeEach(() => (provider.shutdown = () => Promise.resolve()));
-          beforeEach(() => (provider.uninstall = () => undefined));
+          beforeEach(
+            () =>
+              (provider.shutdown = async (): Promise<void> =>
+                Promise.resolve()),
+          );
+          beforeEach(() => (provider.uninstall = (): unknown => undefined));
           it("should return self", function () {
             const self = container.uninstall("test");
             expect(self).to.equal(container);
@@ -447,7 +465,7 @@ describe("Container", function () {
         beforeEach(() => (provider = {}));
         beforeEach(() => container.install("test", provider));
         context("with uninstall method", function () {
-          beforeEach(() => (provider.uninstall = () => undefined));
+          beforeEach(() => (provider.uninstall = (): unknown => undefined));
           it("should return self", function () {
             const self = container.uninstall("test");
             expect(self).to.equal(container);
@@ -470,7 +488,7 @@ describe("Container", function () {
     context("when invoke from branch", function () {
       it("should throw container error", function () {
         const branch = container.fork();
-        const runFn = () => branch.uninstall("test");
+        const runFn = (): unknown => branch.uninstall("test");
         expect(runFn).to.throw(ContainerError);
       });
     });

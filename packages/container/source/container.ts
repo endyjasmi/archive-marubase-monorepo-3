@@ -149,6 +149,7 @@ export class Container implements ContainerInterface {
 
     if (provider.install) provider.install(this);
 
+    /* eslint-disable-next-line @typescript-eslint/no-floating-promises */
     if (this._booted && provider.boot) provider.boot(this);
 
     this._providers[name] = provider;
@@ -212,6 +213,7 @@ export class Container implements ContainerInterface {
     if (typeof provider === "undefined") return this;
 
     if (this._booted && provider.shutdown) {
+      /* eslint-disable-next-line @typescript-eslint/no-floating-promises */
       provider.shutdown(this).then(() => {
         if (!provider.uninstall) return Promise.resolve();
         else provider.uninstall(this);

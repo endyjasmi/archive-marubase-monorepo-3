@@ -139,7 +139,7 @@ describe("BaseResolver", function () {
   describe("#resolve(scope, ...args)", function () {
     it("should throw resolver error", function () {
       const scope = new Scope();
-      const runFn = () => resolver.resolve(scope);
+      const runFn = (): unknown => resolver.resolve(scope);
       expect(runFn).to.throw(ResolverError);
     });
   });

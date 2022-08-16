@@ -7,7 +7,7 @@ import { CallableResolver } from "./callable-resolver.js";
 const callables: Callable[] = [
   [Date, "getTime"],
   [new Date(), "getTime"],
-  () => new Date().getTime(),
+  (): number => new Date().getTime(),
 ];
 callables.forEach((callable) => {
   const callableName =
