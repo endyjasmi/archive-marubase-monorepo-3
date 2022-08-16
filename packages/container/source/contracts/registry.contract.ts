@@ -7,8 +7,6 @@ export interface RegistryInterface {
 
   readonly bindingTagMap: HAMTMap<BindingTag, HAMTSet<ResolverInterface>>;
 
-  readonly parent?: RegistryInterface;
-
   readonly resolverFactory: ResolverFactory;
 
   createBindingKeyResolver(bindingKey: BindingKey): ResolverInterface;
