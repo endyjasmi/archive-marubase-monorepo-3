@@ -20,7 +20,7 @@ export interface ContainerInterface {
 
   resolve<Result>(bindingKey: BindingKey, ...args: unknown[]): Result;
 
-  resolveTag<Result>(bindingTag: BindingTag, ...args: unknown[]): Result[];
+  resolveTag<Result>(bindingTag: BindingTag): Result[];
 
   unbind(bindingKey: BindingKey): this;
 }
