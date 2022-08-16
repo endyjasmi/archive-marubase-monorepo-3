@@ -9,7 +9,9 @@ import { ConstantResolver } from "./resolvers/constant-resolver.js";
 
 describe("Registry", function () {
   let registry: Registry;
-  beforeEach(() => (registry = new Registry()));
+  beforeEach(function () {
+    registry = new Registry();
+  });
 
   describe("get bindingKeyMap()", function () {
     it("should return binding key map", function () {
@@ -81,12 +83,13 @@ describe("Registry", function () {
 
   describe("#getResolverByKey(bindingKey)", function () {
     context("when there is key binding", function () {
-      beforeEach(() => {
+      beforeEach(function () {
         registry
           .createConstantResolver(true)
           .setBindingKey("key")
           .setBindingTags("tag0", "tag1");
       });
+
       it("should return resolver", function () {
         const resolver = registry.getResolverByKey("key");
         expect(resolver).to.have.property("resolve");
@@ -102,12 +105,13 @@ describe("Registry", function () {
 
   describe("#getResolverByTag(bindingTag)", function () {
     context("when there is tag binding", function () {
-      beforeEach(() => {
+      beforeEach(function () {
         registry
           .createConstantResolver(true)
           .setBindingKey("key")
           .setBindingTags("tag0", "tag1");
       });
+
       it("should return resolver array", function () {
         const resolvers = registry.getResolverByTag("tag0");
         expect(resolvers).to.be.an("array");
@@ -125,12 +129,13 @@ describe("Registry", function () {
 
   describe("#setResolverByKey(bindingKey, resolver)", function () {
     context("when there is key binding", function () {
-      beforeEach(() => {
+      beforeEach(function () {
         registry
           .createConstantResolver(true)
           .setBindingKey("key")
           .setBindingTags("tag0", "tag1");
       });
+
       it("should return self", function () {
         const resolver = new ConstantResolver(registry, true);
         const self = registry.setResolverByKey("key", resolver);
@@ -148,12 +153,13 @@ describe("Registry", function () {
 
   describe("#setResolverByTag(bindingTag, resolver)", function () {
     context("when there is tag binding", function () {
-      beforeEach(() => {
+      beforeEach(function () {
         registry
           .createConstantResolver(true)
           .setBindingKey("key")
           .setBindingTags("tag0", "tag1");
       });
+
       it("should return self", function () {
         const resolver = new ConstantResolver(registry, true);
         const self = registry.setResolverByTag("tag0", resolver);
@@ -171,12 +177,13 @@ describe("Registry", function () {
 
   describe("#unsetResolverByKey(bindingKey)", function () {
     context("when there is key binding", function () {
-      beforeEach(() => {
+      beforeEach(function () {
         registry
           .createConstantResolver(true)
           .setBindingKey("key")
           .setBindingTags("tag0", "tag1");
       });
+
       it("should return self", function () {
         const self = registry.unsetResolverByKey("key");
         expect(self).to.equal(registry);
@@ -192,12 +199,13 @@ describe("Registry", function () {
 
   describe("#unsetResolverByTag(bindingTag, resolver)", function () {
     context("when there is tag binding", function () {
-      beforeEach(() => {
+      beforeEach(function () {
         registry
           .createConstantResolver(true)
           .setBindingKey("key")
           .setBindingTags("tag0", "tag1");
       });
+
       it("should return self", function () {
         const resolver = new ConstantResolver(registry, true);
         const self = registry.unsetResolverByTag("tag0", resolver);

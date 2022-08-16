@@ -17,8 +17,10 @@ bindingKeys.forEach((bindingKey) => {
   describe(`BindingKeyResolver (${bindingKeyName})`, function () {
     let registry: Registry;
     let resolver: BindingKeyResolver;
-    beforeEach(() => (registry = new Registry()));
-    beforeEach(() => (resolver = new BindingKeyResolver(registry, bindingKey)));
+    beforeEach(function () {
+      registry = new Registry();
+      resolver = new BindingKeyResolver(registry, bindingKey);
+    });
 
     describe("#resolve(scope, ...args)", function () {
       const resolveScopes: ResolveScope[] = [
@@ -28,13 +30,14 @@ bindingKeys.forEach((bindingKey) => {
         "transient",
       ];
       resolveScopes.forEach((resolveScope) => {
-        context(`when there is binding (${resolveScope})`, function () {
-          beforeEach(() => {
+        context(`when there is binding in ${resolveScope} scope`, function () {
+          beforeEach(function () {
             registry
               .createClassResolver(Date)
               .setBindingKey(bindingKey)
               .setScope(resolveScope);
           });
+
           it("should return instance", function () {
             const scope = new Scope();
             const instance0 = resolver.resolve(scope);

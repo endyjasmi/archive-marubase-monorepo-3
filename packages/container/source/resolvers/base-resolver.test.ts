@@ -7,12 +7,17 @@ import { BaseResolver } from "./base-resolver.js";
 describe("BaseResolver", function () {
   let registry: Registry;
   let resolver: BaseResolver;
-  beforeEach(() => (registry = new Registry()));
-  beforeEach(() => (resolver = new BaseResolver(registry)));
+  beforeEach(function () {
+    registry = new Registry();
+    resolver = new BaseResolver(registry);
+  });
 
   describe("get bindingKey()", function () {
     context("when there is binding key", function () {
-      beforeEach(() => resolver.setBindingKey("key"));
+      beforeEach(function () {
+        resolver.setBindingKey("key");
+      });
+
       it("should return binding key", function () {
         const bindingKey = resolver.bindingKey;
         expect(bindingKey).to.equal("key");
@@ -28,7 +33,10 @@ describe("BaseResolver", function () {
 
   describe("get bindingTags()", function () {
     context("when there is binding tags", function () {
-      beforeEach(() => resolver.setBindingTags("tag0", "tag1"));
+      beforeEach(function () {
+        resolver.setBindingTags("tag0", "tag1");
+      });
+
       it("should return binding tags", function () {
         const bindingTags = resolver.bindingTags;
         expect(bindingTags).to.deep.equal(["tag0", "tag1"]);
@@ -44,7 +52,10 @@ describe("BaseResolver", function () {
 
   describe("get dependencies()", function () {
     context("when there is dependencies", function () {
-      beforeEach(() => resolver.setDependencies("dep0", "dep1"));
+      beforeEach(function () {
+        resolver.setDependencies("dep0", "dep1");
+      });
+
       it("should return dependencies", function () {
         const dependencies = resolver.dependencies;
         expect(dependencies).to.deep.equal(["dep0", "dep1"]);
@@ -67,7 +78,10 @@ describe("BaseResolver", function () {
 
   describe("get scope()", function () {
     context("when there is scope", function () {
-      beforeEach(() => resolver.setScope("container"));
+      beforeEach(function () {
+        resolver.setScope("container");
+      });
+
       it("should return scope", function () {
         const scope = resolver.scope;
         expect(scope).to.equal("container");
@@ -83,7 +97,10 @@ describe("BaseResolver", function () {
 
   describe("#clearBindingKey()", function () {
     context("when there is binding key", function () {
-      beforeEach(() => resolver.setBindingKey("key"));
+      beforeEach(function () {
+        resolver.setBindingKey("key");
+      });
+
       it("should return self", function () {
         const self = resolver.clearBindingKey();
         expect(self).to.equal(resolver);
@@ -99,17 +116,21 @@ describe("BaseResolver", function () {
 
   describe("#clearBindingTags(...bindingTags)", function () {
     context("when there is binding tags and arguments", function () {
-      beforeEach(() => resolver.setBindingTags("tag0", "tag1"));
-      it("should return self", function () {
-        const self = resolver.clearBindingTags("tag0", "tag1");
-        expect(self).to.equal(resolver);
+      beforeEach(function () {
+        resolver.setBindingTags("tag0", "tag1");
       });
-    });
-    context("when there is binding tags and no arguments", function () {
-      beforeEach(() => resolver.setBindingTags("tag0", "tag1"));
-      it("should return self", function () {
-        const self = resolver.clearBindingTags();
-        expect(self).to.equal(resolver);
+
+      context("and invoke with arguments", function () {
+        it("should return self", function () {
+          const self = resolver.clearBindingTags("tag0", "tag1");
+          expect(self).to.equal(resolver);
+        });
+      });
+      context("and invoke with no arguments", function () {
+        it("should return self", function () {
+          const self = resolver.clearBindingTags();
+          expect(self).to.equal(resolver);
+        });
       });
     });
     context("when there is no binding tags", function () {
@@ -122,7 +143,10 @@ describe("BaseResolver", function () {
 
   describe("#clearDependencies()", function () {
     context("when there is dependencies", function () {
-      beforeEach(() => resolver.setDependencies("dep0", "dep1"));
+      beforeEach(function () {
+        resolver.setDependencies("dep0", "dep1");
+      });
+
       it("should return self", function () {
         const self = resolver.clearDependencies();
         expect(self).to.equal(resolver);
@@ -146,7 +170,10 @@ describe("BaseResolver", function () {
 
   describe("#setBindingKey(bindingKey)", function () {
     context("when there is binding key", function () {
-      beforeEach(() => resolver.setBindingKey("key"));
+      beforeEach(function () {
+        resolver.setBindingKey("key");
+      });
+
       it("should return self", function () {
         const self = resolver.setBindingKey("key");
         expect(self).to.equal(resolver);
@@ -162,7 +189,10 @@ describe("BaseResolver", function () {
 
   describe("#setBindingTags(...bindingTags)", function () {
     context("when there is binding tags", function () {
-      beforeEach(() => resolver.setBindingTags("tag0", "tag1"));
+      beforeEach(function () {
+        resolver.setBindingTags("tag0", "tag1");
+      });
+
       it("should return self", function () {
         const self = resolver.setBindingTags("tag0", "tag1");
         expect(self).to.equal(resolver);
@@ -178,7 +208,10 @@ describe("BaseResolver", function () {
 
   describe("#setDependencies(...dependencies)", function () {
     context("when there is dependencies", function () {
-      beforeEach(() => resolver.setDependencies("dep0", "dep1"));
+      beforeEach(function () {
+        resolver.setDependencies("dep0", "dep1");
+      });
+
       it("should return self", function () {
         const self = resolver.setDependencies("dep0", "dep1");
         expect(self).to.equal(resolver);
@@ -194,7 +227,10 @@ describe("BaseResolver", function () {
 
   describe("#setScope(scope)", function () {
     context("when there is scope", function () {
-      beforeEach(() => resolver.setScope("container"));
+      beforeEach(function () {
+        resolver.setScope("container");
+      });
+
       it("should return self", function () {
         const self = resolver.setScope("transient");
         expect(self).to.equal(resolver);

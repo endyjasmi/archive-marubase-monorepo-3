@@ -13,17 +13,20 @@ bindingTags.forEach((bindingTag) => {
   describe(`BindingTagResolver (${bindingTagName})`, function () {
     let registry: Registry;
     let resolver: BindingTagResolver;
-    beforeEach(() => (registry = new Registry()));
-    beforeEach(() => (resolver = new BindingTagResolver(registry, bindingTag)));
+    beforeEach(function () {
+      registry = new Registry();
+      resolver = new BindingTagResolver(registry, bindingTag);
+    });
 
     describe("#resolve(scope, ...args)", function () {
       context("when there is binding", function () {
-        beforeEach(() => {
+        beforeEach(function () {
           registry
             .createClassResolver(Date)
             .setBindingKey(Date)
             .setBindingTags(bindingTag);
         });
+
         it("should return instance array", function () {
           const scope = new Scope();
           const instances = resolver.resolve<Date[]>(scope);

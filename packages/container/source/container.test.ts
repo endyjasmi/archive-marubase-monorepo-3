@@ -17,12 +17,17 @@ chai.use(chaiAsPromised);
 
 describe("Container", function () {
   let container: Container;
-  beforeEach(() => (container = new Container()));
+  beforeEach(function () {
+    container = new Container();
+  });
 
   describe("get booted()", function () {
     context("when invoke from root container", function () {
       context("and container is booted", function () {
-        beforeEach(async () => container.boot());
+        beforeEach(async function () {
+          await container.boot();
+        });
+
         it("should return true", function () {
           const booted = container.booted;
           expect(booted).to.be.true;
@@ -37,9 +42,15 @@ describe("Container", function () {
     });
     context("when invoke from branch container", function () {
       let branch: Container;
-      beforeEach(() => (branch = container.fork()));
+      beforeEach(function () {
+        branch = container.fork();
+      });
+
       context("and container is booted", function () {
-        beforeEach(async () => container.boot());
+        beforeEach(async function () {
+          await container.boot();
+        });
+
         it("should return true", function () {
           const booted = branch.booted;
           expect(booted).to.be.true;
@@ -62,8 +73,12 @@ describe("Container", function () {
       });
     });
     context("when invoke from branch container", function () {
+      let branch: Container;
+      beforeEach(function () {
+        branch = container.fork();
+      });
+
       it("should return parent", function () {
-        const branch = container.fork();
         const parent = branch.parent;
         expect(parent).to.equal(container);
       });
@@ -78,8 +93,12 @@ describe("Container", function () {
       });
     });
     context("when invoke from branch container", function () {
+      let branch: Container;
+      beforeEach(function () {
+        branch = container.fork();
+      });
+
       it("should return providers", function () {
-        const branch = container.fork();
         const providers = branch.providers;
         expect(providers).to.deep.equal({});
       });
@@ -130,22 +149,25 @@ describe("Container", function () {
 
   describe("#bind(bindingKey).toTag(bindingTag)", function () {
     it("should return binding tag resolver", function () {
-      const bindingTagREsolver = container.bind("key").toTag("tag");
-      expect(bindingTagREsolver).to.be.an.instanceOf(BindingTagResolver);
+      const bindingTagResolver = container.bind("key").toTag("tag");
+      expect(bindingTagResolver).to.be.an.instanceOf(BindingTagResolver);
     });
   });
 
   describe("#boot()", function () {
     context("when container is not booted", function () {
-      context("and there is provider", function () {
+      context("and there is existing provider", function () {
         let provider: ProviderInterface;
-        beforeEach(() => (provider = {}));
-        beforeEach(() => container.install("test", provider));
+        beforeEach(function () {
+          provider = {};
+          container.install("test", provider);
+        });
+
         context("with boot method", function () {
-          beforeEach(
-            () =>
-              (provider.boot = async (): Promise<void> => Promise.resolve()),
-          );
+          beforeEach(function () {
+            provider.boot = async (): Promise<void> => Promise.resolve();
+          });
+
           it("should run boot", async function () {
             await container.boot();
           });
@@ -156,14 +178,17 @@ describe("Container", function () {
           });
         });
       });
-      context("and there is no provider", function () {
+      context("and there is no existing provider", function () {
         it("should run boot", async function () {
           await container.boot();
         });
       });
     });
     context("when container is booted", function () {
-      beforeEach(async () => container.boot());
+      beforeEach(async function () {
+        await container.boot();
+      });
+
       it("should run boot", async function () {
         await container.boot();
       });
@@ -179,7 +204,10 @@ describe("Container", function () {
 
   describe("#bound(bindingKey)", function () {
     context("when there is binding", function () {
-      beforeEach(() => container.bind("key").toClass(Date));
+      beforeEach(function () {
+        container.bind("key").toClass(Date);
+      });
+
       it("should return true", function () {
         const hasBinding = container.bound("key");
         expect(hasBinding).to.be.true;
@@ -216,29 +244,40 @@ describe("Container", function () {
   });
 
   describe("#install(name, provider)", function () {
-    let provider: ProviderInterface;
-    beforeEach(() => (provider = {}));
     context("when container is booted", function () {
-      beforeEach(async () => container.boot());
-      context("and there is provider", function () {
-        beforeEach(() => container.install("test", provider));
+      beforeEach(async function () {
+        await container.boot();
+      });
+
+      context("and there is existing provider", function () {
+        beforeEach(function () {
+          container.install("test", {});
+        });
+
         it("should throw container error", function () {
-          const runFn = (): unknown => container.install("test", provider);
+          const runFn = (): unknown => container.install("test", {});
           expect(runFn).to.throw(ContainerError);
         });
       });
-      context("and there is no provider", function () {
-        context("and supplied provider with boot method", function () {
-          beforeEach(
-            () =>
-              (provider.boot = async (): Promise<void> => Promise.resolve()),
-          );
+      context("and there is no existing provider", function () {
+        context("and install provider with boot method", function () {
+          let provider: ProviderInterface;
+          beforeEach(function () {
+            provider = {};
+            provider.boot = async (): Promise<void> => Promise.resolve();
+          });
+
           it("should return self", function () {
             const self = container.install("test", provider);
             expect(self).to.equal(container);
           });
         });
-        context("and supplied provider with no boot method", function () {
+        context("and install provider with no boot method", function () {
+          let provider: ProviderInterface;
+          beforeEach(function () {
+            provider = {};
+          });
+
           it("should return self", function () {
             const self = container.install("test", provider);
             expect(self).to.equal(container);
@@ -247,22 +286,36 @@ describe("Container", function () {
       });
     });
     context("when container is not booted", function () {
-      context("and there is provider", function () {
-        beforeEach(() => container.install("test", provider));
+      context("and there is existing provider", function () {
+        beforeEach(function () {
+          container.install("test", {});
+        });
+
         it("should throw container error", function () {
-          const runFn = (): unknown => container.install("test", provider);
+          const runFn = (): unknown => container.install("test", {});
           expect(runFn).to.throw(ContainerError);
         });
       });
-      context("and there is no provider", function () {
-        context("and supplied provider with install method", function () {
-          beforeEach(() => (provider.install = (): unknown => undefined));
+      context("and there is no existing provider", function () {
+        context("and install provider with install method", function () {
+          let provider: ProviderInterface;
+          beforeEach(function () {
+            provider = {};
+            provider.install = (): unknown => undefined;
+          });
+
           it("should return self", function () {
             const self = container.install("test", provider);
             expect(self).to.equal(container);
           });
         });
-        context("and supplied provider with no install method", function () {
+        context("and install provider with no install method", function () {
+          let provider: ProviderInterface;
+          beforeEach(function () {
+            provider = {};
+            provider.install = (): unknown => undefined;
+          });
+
           it("should return self", function () {
             const self = container.install("test", provider);
             expect(self).to.equal(container);
@@ -273,7 +326,7 @@ describe("Container", function () {
     context("when invoke from branch container", function () {
       it("should throw container error", function () {
         const branch = container.fork();
-        const runFn = (): unknown => branch.install("test", provider);
+        const runFn = (): unknown => branch.install("test", {});
         expect(runFn).to.throw(ContainerError);
       });
     });
@@ -281,16 +334,17 @@ describe("Container", function () {
 
   describe("#installed(name)", function () {
     context("when invoke from root container", function () {
-      context("when there is provider", function () {
-        let provider: ProviderInterface;
-        beforeEach(() => (provider = {}));
-        beforeEach(() => container.install("test", provider));
+      context("and there is existing provider", function () {
+        beforeEach(function () {
+          container.install("test", {});
+        });
+
         it("should return true", function () {
           const installed = container.installed("test");
           expect(installed).to.be.true;
         });
       });
-      context("when there is no provider", function () {
+      context("when there is no existing provider", function () {
         it("should return false", function () {
           const installed = container.installed("test");
           expect(installed).to.be.false;
@@ -299,17 +353,21 @@ describe("Container", function () {
     });
     context("when invoke from branch container", function () {
       let branch: Container;
-      beforeEach(() => (branch = container.fork()));
-      context("when there is provider", function () {
-        let provider: ProviderInterface;
-        beforeEach(() => (provider = {}));
-        beforeEach(() => container.install("test", provider));
+      beforeEach(function () {
+        branch = container.fork();
+      });
+
+      context("when there is existing provider", function () {
+        beforeEach(function () {
+          container.install("test", {});
+        });
+
         it("should return true", function () {
           const installed = branch.installed("test");
           expect(installed).to.be.true;
         });
       });
-      context("when there is no provider", function () {
+      context("when there is no existing provider", function () {
         it("should return false", function () {
           const installed = branch.installed("test");
           expect(installed).to.be.false;
@@ -320,9 +378,10 @@ describe("Container", function () {
 
   describe("#resolve(bindingKey, ...args)", function () {
     context("when there is key binding", function () {
-      beforeEach(() => {
-        container.bind(Date).toClass(Date).setBindingTags("tag0", "tag1");
+      beforeEach(function () {
+        container.bind(Date).toClass(Date);
       });
+
       it("should return resolve instance", function () {
         const instance = container.resolve(Date);
         expect(instance).to.be.an.instanceOf(Date);
@@ -338,18 +397,19 @@ describe("Container", function () {
 
   describe("#resolveTag(bindingTag)", function () {
     context("when there is tag binding", function () {
-      beforeEach(() => {
-        container.bind(Date).toClass(Date).setBindingTags("tag0", "tag1");
+      beforeEach(function () {
+        container.bind(Date).toClass(Date).setBindingTags("tag");
       });
+
       it("should return resolve instance array", function () {
-        const instances = container.resolveTag("tag0");
+        const instances = container.resolveTag("tag");
         expect(instances).to.be.an("array");
         expect(instances[0]).to.be.an.instanceOf(Date);
       });
     });
     context("when there is no tag binding", function () {
       it("should return empty array", function () {
-        const instances = container.resolveTag("tag0");
+        const instances = container.resolveTag("tag");
         expect(instances).to.be.an("array");
         expect(instances).to.be.empty;
       });
@@ -358,17 +418,22 @@ describe("Container", function () {
 
   describe("#shutdown()", function () {
     context("when container is booted", function () {
-      beforeEach(async () => container.boot());
-      context("and there is provider", function () {
+      beforeEach(async function () {
+        await container.boot();
+      });
+
+      context("and there is existing provider", function () {
         let provider: ProviderInterface;
-        beforeEach(() => (provider = {}));
-        beforeEach(() => container.install("test", provider));
+        beforeEach(function () {
+          provider = {};
+          container.install("test", provider);
+        });
+
         context("with shutdown method", function () {
-          beforeEach(
-            () =>
-              (provider.shutdown = async (): Promise<void> =>
-                Promise.resolve()),
-          );
+          beforeEach(function () {
+            provider.shutdown = async (): Promise<void> => Promise.resolve();
+          });
+
           it("should run shutdown", async function () {
             await container.shutdown();
           });
@@ -379,7 +444,7 @@ describe("Container", function () {
           });
         });
       });
-      context("and there is no provider", function () {
+      context("and there is no existing provider", function () {
         it("should run shutdown", async function () {
           await container.shutdown();
         });
@@ -401,7 +466,10 @@ describe("Container", function () {
 
   describe("#unbind(bindingKey)", function () {
     context("when there is binding", function () {
-      beforeEach(() => container.bind("key").toClass(Date));
+      beforeEach(function () {
+        container.bind("key").toClass(Date);
+      });
+
       it("should return self", function () {
         const self = container.unbind("key");
         expect(self).to.equal(container);
@@ -417,17 +485,22 @@ describe("Container", function () {
 
   describe("#uninstall(name)", function () {
     context("when container is booted", function () {
-      beforeEach(async () => container.boot());
-      context("and there is provider", function () {
+      beforeEach(async function () {
+        await container.boot();
+      });
+
+      context("and there is existing provider", function () {
         let provider: ProviderInterface;
-        beforeEach(() => (provider = {}));
-        beforeEach(() => container.install("test", provider));
+        beforeEach(function () {
+          provider = {};
+          container.install("test", provider);
+        });
+
         context("with shutdown method", function () {
-          beforeEach(
-            () =>
-              (provider.shutdown = async (): Promise<void> =>
-                Promise.resolve()),
-          );
+          beforeEach(function () {
+            provider.shutdown = async (): Promise<void> => Promise.resolve();
+          });
+
           it("should return self", function () {
             const self = container.uninstall("test");
             expect(self).to.equal(container);
@@ -440,19 +513,18 @@ describe("Container", function () {
           });
         });
         context("with shutdown and uninstall method", function () {
-          beforeEach(
-            () =>
-              (provider.shutdown = async (): Promise<void> =>
-                Promise.resolve()),
-          );
-          beforeEach(() => (provider.uninstall = (): unknown => undefined));
+          beforeEach(function () {
+            provider.shutdown = async (): Promise<void> => Promise.resolve();
+            provider.uninstall = (): unknown => undefined;
+          });
+
           it("should return self", function () {
             const self = container.uninstall("test");
             expect(self).to.equal(container);
           });
         });
       });
-      context("and there is no provider", function () {
+      context("and there is no existing provider", function () {
         it("should return self", function () {
           const self = container.uninstall("test");
           expect(self).to.equal(container);
@@ -460,12 +532,18 @@ describe("Container", function () {
       });
     });
     context("when container is not booted", function () {
-      context("and there is provider", function () {
+      context("and there is existing provider", function () {
         let provider: ProviderInterface;
-        beforeEach(() => (provider = {}));
-        beforeEach(() => container.install("test", provider));
+        beforeEach(function () {
+          provider = {};
+          container.install("test", provider);
+        });
+
         context("with uninstall method", function () {
-          beforeEach(() => (provider.uninstall = (): unknown => undefined));
+          beforeEach(function () {
+            provider.uninstall = (): unknown => undefined;
+          });
+
           it("should return self", function () {
             const self = container.uninstall("test");
             expect(self).to.equal(container);
@@ -478,7 +556,7 @@ describe("Container", function () {
           });
         });
       });
-      context("and there is no provider", function () {
+      context("and there is no existing provider", function () {
         it("should return self", function () {
           const self = container.uninstall("test");
           expect(self).to.equal(container);

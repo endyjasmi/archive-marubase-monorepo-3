@@ -4,7 +4,9 @@ import { Scope } from "./scope.js";
 
 describe("Scope", function () {
   let scope: Scope;
-  beforeEach(() => (scope = new Scope()));
+  beforeEach(function () {
+    scope = new Scope();
+  });
 
   describe("get container()", function () {
     it("should return cache", function () {

@@ -19,15 +19,18 @@ callables.forEach((callable) => {
   describe(`CallableResolver (${callableName})`, function () {
     let registry: Registry;
     let resolver: CallableResolver;
-    beforeEach(() => (registry = new Registry()));
-    beforeEach(() => (resolver = new CallableResolver(registry, callable)));
+    beforeEach(function () {
+      registry = new Registry();
+      resolver = new CallableResolver(registry, callable);
+    });
 
     describe("#resolve(scope, ...args)", function () {
-      beforeEach(() => {
+      beforeEach(function () {
         registry.createConstantResolver(Date.now()).setBindingKey("time");
         registry.createClassResolver(Date).setBindingKey(Date);
         resolver.setDependencies("time");
       });
+
       it("should return instance", function () {
         const scope = new Scope();
         const instance = resolver.resolve(scope);
