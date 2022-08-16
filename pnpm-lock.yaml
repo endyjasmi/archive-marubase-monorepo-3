@@ -8,6 +8,7 @@ importers:
       '@jsdevtools/coverage-istanbul-loader': ^3.0.5
       '@tsconfig/node18': ^1.0.1
       '@types/chai': ^4.3.1
+      '@types/chai-as-promised': ^7.1.5
       '@types/mocha': ^9.1.1
       '@types/node': ^18.6.4
       '@types/web': ^0.0.71
@@ -16,6 +17,7 @@ importers:
       buffer: ^6.0.3
       c8: ^7.12.0
       chai: ^4.3.6
+      chai-as-promised: ^7.1.1
       cross-env: ^7.0.3
       del-cli: ^5.0.0
       echo-cli: ^2.0.0
@@ -52,6 +54,7 @@ importers:
       '@jsdevtools/coverage-istanbul-loader': 3.0.5
       '@tsconfig/node18': 1.0.1
       '@types/chai': 4.3.1
+      '@types/chai-as-promised': 7.1.5
       '@types/mocha': 9.1.1
       '@types/node': 18.6.4
       '@types/web': 0.0.71
@@ -60,6 +63,7 @@ importers:
       buffer: 6.0.3
       c8: 7.12.0
       chai: 4.3.6
+      chai-as-promised: 7.1.1_chai@4.3.6
       cross-env: 7.0.3
       del-cli: 5.0.0
       echo-cli: 2.0.0
@@ -510,6 +514,12 @@ packages:
 
   /@tsconfig/node18/1.0.1:
     resolution: {integrity: sha512-sNFeK6X2ATlhlvzyH4kKYQlfHXE2f2/wxtB9ClvYXevWpmwkUT7VaSrjIN9E76Qebz8qP5JOJJ9jD3QoD/Z9TA==}
+    dev: true
+
+  /@types/chai-as-promised/7.1.5:
+    resolution: {integrity: sha512-jStwss93SITGBwt/niYrkf2C+/1KTeZCZl1LaeezTlqppAKeoQC7jxyqYuP72sxBGKCIbw7oHgbYssIRzT5FCQ==}
+    dependencies:
+      '@types/chai': 4.3.1
     dev: true
 
   /@types/chai/4.3.1:
@@ -1157,6 +1167,15 @@ packages:
 
   /caniuse-lite/1.0.30001374:
     resolution: {integrity: sha512-mWvzatRx3w+j5wx/mpFN5v5twlPrabG8NqX2c6e45LCpymdoGqNvRkRutFUqpRTXKFQFNQJasvK0YT7suW6/Hw==}
+    dev: true
+
+  /chai-as-promised/7.1.1_chai@4.3.6:
+    resolution: {integrity: sha512-azL6xMoi+uxu6z4rhWQ1jbdUhOMhis2PvscD/xjLqNMkv3BPPp2JyyuTHOrf9BOosGpNQ11v6BKv/g57RXbiaA==}
+    peerDependencies:
+      chai: '>= 2.1.2 < 5'
+    dependencies:
+      chai: 4.3.6
+      check-error: 1.0.2
     dev: true
 
   /chai/4.3.6:
