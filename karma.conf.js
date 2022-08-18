@@ -28,7 +28,11 @@ module.exports = function (karmaConfig) {
     basePath: process.cwd(),
     coverageReporter: {
       dir: "coverage",
-      reporters: [{ type: "lcov", dir: "coverage" }, { type: "text" }],
+      reporters: [
+        { type: "json", dir: "coverage" },
+        { type: "lcov", dir: "coverage" },
+        { type: "text" },
+      ],
       subdir: (browserName) => browserName.toLowerCase().split(/[ /-]/)[0],
     },
     failOnEmptyTestSuite: false,
