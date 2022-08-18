@@ -35,7 +35,7 @@
     "coverage:browser": "cross-env KARMA_COVERAGE=true karma start --browsers=ChromiumHeadless,FirefoxHeadless,WebkitHeadless \"../../karma.conf.js\"",
     "coverage:chromium": "cross-env KARMA_COVERAGE=true karma start --browsers=ChromiumHeadless \"../../karma.conf.js\"",
     "coverage:firefox": "cross-env KARMA_COVERAGE=true karma start --browsers=FirefoxHeadless \"../../karma.conf.js\"",
-    "coverage:nodejs": "nyc --reporter=json --reporter=lcov --reporter=text --report-dir=\"./coverage/nodejs\" mocha \"./source/index.test.*\"",
+    "coverage:nodejs": "nyc mocha \"./source/index.test.*\"",
     "coverage:webkit": "cross-env KARMA_COVERAGE=true karma start --browsers=WebkitHeadless \"../../karma.conf.js\"",
     "lint": "eslint \"./source/**/*\"",
     "test": "pnpm test:browser && pnpm test:nodejs",
