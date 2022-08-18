@@ -7,6 +7,14 @@ Object.assign(process.env, {
   WEBKIT_HEADLESS_BIN: webkit.executablePath(),
 });
 
+const coverageReporters = [];
+if (process.env.KARMA_COVERAGE) {
+  const types = process.env.KARMA_COVERAGE.split(",");
+  if (types.indexOf("json") >= 0) coverageReporters.push({ type: "json" });
+  if (types.indexOf("lcov") >= 0) coverageReporters.push({ type: "lcov" });
+  if (types.indexOf("text") >= 0) coverageReporters.push({ type: "text" });
+}
+
 const webpack = require("webpack");
 const webpackConfig = require("./webpack.config.js");
 webpackConfig.mode = "none";
@@ -28,11 +36,7 @@ module.exports = function (karmaConfig) {
     basePath: process.cwd(),
     coverageReporter: {
       dir: "coverage",
-      reporters: [
-        { type: "json", dir: "coverage" },
-        { type: "lcov", dir: "coverage" },
-        { type: "text" },
-      ],
+      reporters: coverageReporters,
       subdir: (browserName) => browserName.toLowerCase().split(/[ /-]/)[0],
     },
     failOnEmptyTestSuite: false,
