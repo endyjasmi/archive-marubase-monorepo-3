@@ -1,4 +1,3 @@
-const ResolveTypescriptPlugin = require("resolve-typescript-plugin");
 const webpack = require("webpack");
 module.exports = {
   devtool: "inline-source-map",
@@ -24,6 +23,12 @@ module.exports = {
     }),
   ],
   resolve: {
+    extensionAlias: {
+      ".js": [".ts", ".js"],
+      ".jsx": [".tsx", ".jsx"],
+      ".cjs": [".cts", ".cjs"],
+      ".mjs": [".mts", ".mjs"],
+    },
     fallback: {
       buffer: require.resolve("buffer/"),
       events: require.resolve("events/"),
@@ -31,6 +36,5 @@ module.exports = {
       stream: require.resolve("readable-stream"),
       util: require.resolve("util/"),
     },
-    plugins: [new ResolveTypescriptPlugin()],
   },
 };
