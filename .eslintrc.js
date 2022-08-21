@@ -22,6 +22,7 @@ module.exports = {
     "@typescript-eslint/explicit-member-accessibility": "error",
     "@typescript-eslint/method-signature-style": ["error", "method"],
     "@typescript-eslint/promise-function-async": "error",
+    "@typescript-eslint/unified-signatures": "off",
     "mocha/no-exports": "off",
     "mocha/no-setup-in-describe": "off",
     "tsdoc/syntax": "error",
