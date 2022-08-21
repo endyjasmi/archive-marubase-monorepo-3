@@ -3,7 +3,7 @@ import { Readable } from "node:stream";
 export interface MessageInterface {
   readonly body: Readable;
 
-  readonly headers: Map<string, string>;
+  readonly headers: Record<string, string>;
 
   readonly protocol: MessageProtocol;
 
@@ -17,6 +17,7 @@ export interface MessageInterface {
 
   setHeader(key: string, value: string): this;
 
+  setHeaders(headers: Record<string, string>): this;
   setHeaders(entries: [string, string][]): this;
 
   setProtocol(protocol: MessageProtocol): this;
