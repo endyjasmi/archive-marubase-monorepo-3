@@ -1,3 +1,3 @@
-# 🗃️ Marubase Platform (WIP)
+# 🗃️ Marubase Platform
 
 > 🚧 This project is currently work in progress.
